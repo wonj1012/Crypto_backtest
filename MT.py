@@ -2,6 +2,8 @@ import time
 import datetime as dt
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 from constants.constant import *
 
 symbols = symbols[:5]
@@ -63,3 +65,16 @@ buf = (f"CAGR: {round(cagr * 100, 4)}%\n"
 print(buf)
 f = open("result/MT.txt", 'w')
 f.write(buf)
+
+fig, ax1 = plt.subplots()
+ax2 = ax1.twinx()
+
+c1 = ax1.plot(df.index, df['asset'], color='r')
+c2 = ax2.plot(df.index, df['mdd'], color='b')
+
+ax1.set_label("Asset")
+ax2.set_label("MDD")
+
+c = c1 + c2
+ax1.legend(c, ['Asset', 'MDD'])
+plt.show()
